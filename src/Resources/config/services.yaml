@@ -1,0 +1,13 @@
+services:
+  PHProfiler\SymfonyPHProfilerBundle\EventListener\PHProfilerListener:
+    arguments:
+      $client: '@guzzle.client'
+      $enabled: '%phprofiler.enabled%'
+      $dsn: '%phprofiler.dsn%'
+      $security: '@security.helper'
+      $requestStack: '@request_stack'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+  GuzzleHttp\Client: ~
